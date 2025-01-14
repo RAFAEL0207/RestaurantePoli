@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply font-bold text-2xl
+    }
+
+    h2 {
+        @apply font-bold text-xl
+    }
+
+    section {
+        @apply pt-8
+    }
+
+    p {
+        @apply text-gray-500
+    }
+}
+
+@layer utilities {
+    .container {
+        @apply max-w-[90%] mx-auto;
+    }
+
+    .bg-gradient {
+        @apply bg-gradient-to-l from-primary-400 to-primary-600 text-white 
+    }
+
+    .bg-gradient-rose {
+        @apply bg-gradient-to-l from-rose-400 to-rose-500 text-white
+    }
+
+    .bg-gradient-orange {
+        @apply bg-gradient-to-l from-orange-400 to-orange-600 text-white
+    }
+
+    /* AUTH */
+    .bg-auth {
+        background-color: #55534C;
+        background-image: url("../assets/images/fond2.png");
+        background-size: cover;
+        animation: auth 10s infinite alternate ease-in-out;
+    }
+
+    .login-form__container{
+        @apply max-w-[90%] mx-auto md:max-w-[80%] xl:max-w-[60%]
+    }
+
+    @keyframes auth {
+        100% {
+            background-position: 50% 100%;
+        }
+    }
+
+    /* DASHBOARD */
+    .dashboard__layout {
+        @apply flex min-h-screen relative; 
+        /* background-image: url("../assets/images/fondopag.png"); */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+    
+    .sidemenu {
+        @apply  absolute -left-[100%] md:left-0 md:relative z-50 flex flex-col h-screen bg-white max-w-[300px] w-full border border-slate-200 py-4 px-6 transition-all
+    }
+
+    .sidemenu-active {
+        @apply left-[0%]
+    }
+
+    .sidemenu__link {
+        @apply flex items-center gap-2 p-3 text-base md:px-3 md:py-4 rounded-lg text-slate-500 hover:sidemenu__link--active
+    }
+
+    .sidemenu__link--active {
+        @apply  bg-gradient-to-r from-primary-400 to-primary-500 text-white
+    }
+
+    .navmenu {
+        @apply px-4 bg-white py-4 w-full border-b border-slate-200 flex justify-between items-center
+    }
+
+    .navmenu__search {
+        @apply hidden md:flex bg-[rgb(241,244,251)] p-2 rounded-lg justify-between items-center max-w-xs w-full
+    }
+
+    .navmenu__search input {
+        @apply bg-transparent outline-none w-full
+    }
+
+    /* CATEGORIES */
+    .category__header {
+        @apply pt-8
+    }
+
+    .category__container {
+        @apply container flex flex-col md:flex-row justify-between items-center
+    }
+    
+    .category__list {
+        @apply gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4
+    }
+
+    /* PRODUCTS */
+    .products__header {
+        @apply pt-8
+    }
+
+    .products__header__title{
+        @apply container flex flex-col md:flex-row justify-between items-center
+    }
+
+    .new-product__header {
+        @apply pt-8
+    }
+
+    .new-product__header--container {
+        @apply container flex flex-col gap-2
+    }
+
+    .new-product__header--link {
+        @apply flex gap-2 items-center text-primary-500
+    }
+
+    .product__reports {
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+    }
+
+    .product__report--container {
+        @apply container flex flex-col lg:flex-row gap-4
+    }
+
+    .product__report--card {
+        @apply shadow-md max-w-xs w-full p-4; 
+        opacity: 0.8;
+    }
+
+    .product__form {
+        @apply rounded-md container shadow-md bg-white px-6 py-8 w-full
+    }
+
+    .edit-product__header{
+        @apply pt-8
+    }
+
+    .edit-product__header--container {
+        @apply container flex flex-col items-start gap-2
+    }
+    /* CART */
+    .sidemenu__cart{
+        @apply  absolute -left-[100%] text-black md:left-0 md:relative z-50 flex flex-col h-screen bg-white w-full border border-slate-200 py-4 px-6 transition-all
+    }
+
+    /* USERS */
+    .users__header {
+        @apply pt-8
+    }
+
+    .users__header--container {
+        @apply container flex flex-col md:flex-row justify-between items-center
+    }
+
+    .new-user__header {
+        @apply pt-8
+    }
+
+    .new-user__header--container {
+        @apply container flex flex-col items-start gap-2
+    }
+
+    .new-user__form {
+        @apply bg-white flex flex-col gap-6 pt-12 px-10 pb-10 rounded-md
+    }
+
+    .new-user__form--fields {
+        @apply grid md:grid-cols-2 xl:grid-cols-3 w-full gap-6
+    }
+
+    /* CLIENTS */
+    .clients__header {
+        @apply pt-8
+    }
+
+    .clients__header--container {
+        @apply container flex flex-col gap-2 md:flex-row justify-between items-center
+    }
+
+    .new-client__form {
+        @apply bg-white w-full px-8 pt-8 pb-12 rounded-lg flex flex-col gap-6
+    }
+
+    .orders__header {
+        @apply pt-8
+    }
+
+    .orders__header--container {
+        @apply container flex flex-col gap-4 items-start
+    }
+
+    .menu__header {
+        background-image: url('../assets/images/fond2.png');
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: color;
+        background-color: rgba(0, 0, 0, 0.579);
+
+    }
+}
+
+@layer components {
+
+    /* BUTTONS */
+    .btn-primary {
+        @apply bg-gradient-to-r from-primary-400 to-primary-500 !text-primary-foreground
+    }
+}
+

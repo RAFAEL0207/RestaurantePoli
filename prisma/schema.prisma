@@ -1,0 +1,162 @@
+// -------------------------------
+// CONFIGURACIÓN DEL CLIENTE Y BASE DE DATOS
+// -------------------------------
+
+// Generador para crear el cliente Prisma en JavaScript o TypeScript.
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Configuración de la fuente de datos.
+// Se utiliza MongoDB como base de datos y la conexión se obtiene de una variable de entorno.
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// -------------------------------
+// MODELOS DE DATOS
+// -------------------------------
+
+model Categories {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name        String
+  description String
+
+  categoryParent CategoryParent?
+
+  products Products[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("categories")
+}
+
+type CategoryParent {
+  id   String @db.ObjectId
+  name String
+}
+
+// Modelo para los productos.
+model Products {
+  id String @id @default(auto()) @map("_id") @db.ObjectId // ID único generado automáticamente.
+
+  name  String // Nombre del producto.
+  slug  String  @unique // Identificador único para URL.
+  price Float // Precio del producto.
+  image String? // Imagen opcional del producto.
+  stock Int     @default(0) // Cantidad en stock (por defecto 0).
+
+  createdAt DateTime @default(now()) // Fecha de creación (valor por defecto: ahora).
+  updatedAt DateTime @updatedAt // Fecha de última actualización (se actualiza automáticamente).
+
+  // Relación con la categoría a la que pertenece el producto.
+  category   Categories? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String      @db.ObjectId // ID de la categoría asociada.
+
+  @@map("products") // Mapea este modelo a la colección "products" en la base de datos.
+}
+
+// Modelo para los usuarios.
+model Users {
+  id String @id @default(auto()) @map("_id") @db.ObjectId // ID único generado automáticamente.
+
+  name     String // Nombre del usuario.
+  lastName String // Apellido del usuario.
+  email    String   @unique // Correo electrónico único.
+  password String // Contraseña del usuario.
+  image    String // Imagen de perfil.
+  role     UserRole // Lista de roles asignados al usuario.
+  token    String? // Token opcional para autenticación.
+
+  createdAt DateTime @default(now()) // Fecha de creación.
+  updatedAt DateTime @updatedAt // Fecha de última actualización.
+
+  // Relación con las órdenes asociadas al usuario.
+  orders Orders[]
+
+  @@map("users") // Mapea este modelo a la colección "users".
+}
+
+// Modelo para las órdenes o pedidos.
+model Orders {
+  id String @id @default(auto()) @map("_id") @db.ObjectId // ID único generado automáticamente.
+
+  orderProducts OrderProducts[] // Lista de productos en el pedido.
+
+  // Relación con el cliente asociado al pedido.
+  client   Clients? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  clientId String?  @db.ObjectId // ID del cliente.
+
+  // Relación con el usuario que creó el pedido (opcional).
+  user   Users?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId String? @db.ObjectId
+
+  table Int?
+
+  type OrderType // Tipo de pedido (Delivery, Pickup, Mesa).
+
+  total Float // Total a pagar en el pedido.
+
+  status OrderStatus // Estado del pedido (Pendiente, Completado, Cancelado).
+
+  createdAt DateTime @default(now()) // Fecha de creación.
+  updatedAt DateTime @updatedAt // Fecha de última actualización.
+
+  @@map("orders") // Mapea este modelo a la colección "orders".
+}
+
+// Modelo para los clientes.
+model Clients {
+  id String @id @default(auto()) @map("_id") @db.ObjectId // ID único generado automáticamente.
+
+  ci String @unique // Identificador único del cliente (por ejemplo, número de identificación).
+
+  name String // Nombre del cliente.
+
+  firstSurname  String // Primer apellido.
+  secondSurname String? // Segundo apellido (opcional).
+  createdAt     DateTime @default(now()) // Fecha de creación.
+  updatedAt     DateTime @updatedAt // Fecha de última actualización.
+
+  // Relación con las órdenes asociadas al cliente.
+  Orders Orders[]
+
+  @@map("clients") // Mapea este modelo a la colección "clients".
+}
+
+// -------------------------------
+// TIPOS PERSONALIZADOS Y ENUMERACIONES
+// -------------------------------
+
+// Tipo embebido para representar productos en un pedido.
+type OrderProducts {
+  productId    String?  @db.ObjectId 
+  productName  String // Nombre del producto.
+  productPrice Float // Precio unitario del producto.
+  subTotal     Float // Subtotal por producto.
+  quantity Int // Cantidad pedida.
+}
+
+// Enumeración para los roles de usuario.
+enum UserRole {
+  Admin
+  Cajero 
+  Cocina 
+  Mesero 
+}
+
+// Enumeración para los tipos de pedido.
+enum OrderType {
+  DELIVERY // Pedido para entrega a domicilio.
+  TABLE // Pedido realizado en mesa.
+}
+
+// Enumeración para los estados del pedido.
+enum OrderStatus {
+  PENDING // Pedido pendiente.
+  COMPLETED // Pedido completado.
+  CANCELED // Pedido cancelado.
+}

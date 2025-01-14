@@ -1,0 +1,11 @@
+services:
+  restaurantDb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mongo
+    container_name: restaurant-db
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo:/data/db
