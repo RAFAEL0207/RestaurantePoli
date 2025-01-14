@@ -9,13 +9,12 @@ export default function LoginPage() {
             <header>
                 <div className="container flex flex-col gap-2 text-center">
                     <Image
-                        className="bg-black rounded-md mx-auto"
-                        width={150}
-                        height={10}
+                        className="bg-color rounded-md mx-auto"
+                        width={450}
+                        height={450}
                         src={logo}
                         alt=""
                     />
-                    <h2 className="text-[3rem]">Bienvenido</h2>
                     <p>Ingresa tus credenciales para acceder al sistema.</p>
                 </div>
             </header>

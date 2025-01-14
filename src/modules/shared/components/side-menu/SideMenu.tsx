@@ -29,10 +29,10 @@ export const SideMenu = ({ user }: Props) => {
 
             <aside className={isSideMeunuOpen ? 'sidemenu sidemenu-active' : 'sidemenu '}>
                 <div className='mb-8 flex items-center gap-2'>
-                    <div className='bg-gray-500/10 flex items-center justify-center'>
+                    <div className='bg-color text-2xl p-2 rounded-xl'>
                         <Image
-                            width={200}
-                            height={200}
+                            width={300}
+                            height={300}
                             src={logo}
                             alt=""
                             className='mx-auto'

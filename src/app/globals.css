@@ -23,7 +23,9 @@
 @layer utilities {
     .container {
         @apply max-w-[90%] mx-auto;
+        
     }
+    
 
     .bg-gradient {
         @apply bg-gradient-to-l from-primary-400 to-primary-600 text-white 
@@ -43,6 +45,9 @@
         background-image: url("../assets/images/fond2.png");
         background-size: cover;
         animation: auth 10s infinite alternate ease-in-out;
+    }
+    .bg-color {
+        background-color: #55534C;
     }
 
     .login-form__container{

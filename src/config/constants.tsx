@@ -20,13 +20,13 @@ export const sidemenu_options: SideMenuOption[] = [
     //     role: ['Cajero', 'Admin', 'Cocina', 'Mesero'],
     // },
     {
-        name: 'POS',
+        name: 'Caja',
         path: '/admin/pos',
         icon: <ShoppingCart01Icon size={22} />,
         role: ['Admin', 'Cajero', 'Mesero'],
     },
     {
-        name: 'Ordenes',
+        name: 'Pedidos',
         path: '/admin/orders',
         icon: <PackageIcon size={22} />,
         role: ['Admin', 'Cocina', 'Mesero', 'Cajero'],
